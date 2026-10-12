@@ -3,17 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Bitongue Adventures · Learning Lab - Special</title>
+<title>Bitongue Adventures · Choose Your Learning Path</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<section id="selectorPortal" class="selector-portal">
+  <header class="portal-topbar">
+    <div class="brand"><span class="brand-mark">B</span><div>Bitongue <small>ADVENTURES</small></div></div>
+    <div class="portal-tag"><i class="fa-solid fa-compass"></i> YOUR LEARNING ADVENTURE</div>
+  </header>
+  <main class="selector-main">
+    <div class="selector-intro">
+      <span class="eyebrow">READY, SET, LEARN!</span>
+      <h1>Where shall we go<br><em>today?</em></h1>
+      <p>Choose your grade, pick a unit, and tap a day to begin your adventure.</p>
+      <div class="selector-progress"><span class="step-dot active" id="dotGrade">1</span><span class="step-line"></span><span class="step-dot" id="dotUnit">2</span><span class="step-line"></span><span class="step-dot" id="dotDay">3</span><span class="progress-label" id="progressLabel">STEP 1 OF 3 · CHOOSE YOUR GRADE</span></div>
+    </div>
+    <section class="selector-stage" id="gradeStage">
+      <div class="selector-heading"><div><span class="eyebrow">STEP 1</span><h2>Choose your grade</h2><p>Tap one big button to continue.</p></div><span class="heading-icon">🎓</span></div>
+      <div class="tile-grid grade-tiles">
+        <button class="choice-tile grade-tile tile-blue" data-grade="initial"><span class="tile-icon"><i class="fa-solid fa-rocket"></i></span><span class="tile-kicker">START YOUR JOURNEY</span><strong>Grade 1</strong><small>Initial Level</small><span class="tile-arrow"><i class="fa-solid fa-arrow-right"></i></span></button>
+        <button class="choice-tile grade-tile tile-pink" data-grade="fifth"><span class="tile-icon"><i class="fa-solid fa-star"></i></span><span class="tile-kicker">READY FOR A CHALLENGE?</span><strong>Grade 5</strong><small>5th Level</small><span class="tile-arrow"><i class="fa-solid fa-arrow-right"></i></span></button>
+      </div>
+    </section>
+    <section class="selector-stage hidden" id="unitStage">
+      <div class="selector-heading"><div><span class="eyebrow">STEP 2</span><h2>Pick your unit</h2><p id="unitSubtitle">Choose a unit to see its learning days.</p></div><button class="back-button" data-back="grade"><i class="fa-solid fa-arrow-left"></i> Grades</button></div>
+      <div class="tile-grid unit-tiles" id="unitTiles"></div>
+    </section>
+    <section class="selector-stage hidden" id="dayStage">
+      <div class="selector-heading"><div><span class="eyebrow">STEP 3</span><h2>Choose your day</h2><p id="daySubtitle">Five steps, one exciting week.</p></div><button class="back-button" data-back="unit"><i class="fa-solid fa-arrow-left"></i> Units</button></div>
+      <div class="tile-grid day-tiles" id="dayTiles"></div>
+      <div class="week-ribbon"><i class="fa-solid fa-lightbulb"></i><span><b>Every day is a new discovery.</b> Vocabulary, Reading, Listening, Speaking and Writing live inside each daily lesson.</span></div>
+    </section>
+    <footer class="portal-footer"><span>© Bitongue Adventures</span><span>Explore · Practice · Create</span></footer>
+  </main>
+</section>
+<div id="learningApp" class="hidden">
 <header class="topbar">
   <div class="brand"><span class="brand-mark">B</span><div>Bitongue <small>ADVENTURES</small></div></div>
   <div class="course">
     <strong>Learning Lab</strong>
-    <span>Initial Level · Unit 2 / 5th Level · Unit 1</span>
+    <span id="selectedPathLabel">Grade 1 · Unit 2 · Day 1</span>
   </div>
-  <div class="xp">⭐ <b id="xp">0</b> XP</div>
+  <button class="menu-return" id="returnToMenu"><i class="fa-solid fa-grid-2"></i> Change lesson</button><div class="xp">⭐ <b id="xp">0</b> XP</div>
 </header>
 
 <main class="app">
@@ -185,5 +218,6 @@
   </section>
 </main>
 <script src="app.js"></script>
+</div>
 </body>
 </html>
