@@ -17,27 +17,21 @@
     <div class="selector-intro">
       <span class="eyebrow">READY, SET, LEARN!</span>
       <h1>Where shall we go<br><em>today?</em></h1>
-      <p>Choose your grade, pick a unit, and tap a day to begin your adventure.</p>
-      <div class="selector-progress"><span class="step-dot active" id="dotGrade">1</span><span class="step-line"></span><span class="step-dot" id="dotUnit">2</span><span class="step-line"></span><span class="step-dot" id="dotDay">3</span><span class="progress-label" id="progressLabel">STEP 1 OF 3 · CHOOSE YOUR GRADE</span></div>
+      <p>Choose your level (Pre A1 to C1), pick a unit, and tap a day to begin your adventure.</p>
+      <div class="selector-progress"><span class="step-dot active" id="dotGrade">1</span><span class="step-line"></span><span class="step-dot" id="dotUnit">2</span><span class="step-line"></span><span class="step-dot" id="dotDay">3</span><span class="progress-label" id="progressLabel">STEP 1 OF 3 · CHOOSE YOUR LEVEL</span></div>
     </div>
     <section class="selector-stage" id="gradeStage">
-      <div class="selector-heading"><div><span class="eyebrow">STEP 1</span><h2>Choose your grade</h2><p>Tap one big button to continue.</p></div><span class="heading-icon">🎓</span></div>
-      <div class="tile-grid grade-tiles">
-        <button class="choice-tile grade-tile tile-blue" data-grade="initial"><span class="tile-icon"><i class="fa-solid fa-rocket"></i></span><span class="tile-kicker">START YOUR JOURNEY</span><strong>Level 1</strong><small>1st Level</small><span class="tile-arrow"><i class="fa-solid fa-arrow-right"></i></span></button>
-        <button class="choice-tile grade-tile tile-blue" data-grade="initial"><span class="tile-icon"><i class="fa-solid fa-rocket"></i></span><span class="tile-kicker">START YOUR JOURNEY</span><strong>Level 2</strong><small>2nd Level</small><span class="tile-arrow"><i class="fa-solid fa-arrow-right"></i></span></button>
-        <button class="choice-tile grade-tile tile-blue" data-grade="initial"><span class="tile-icon"><i class="fa-solid fa-rocket"></i></span><span class="tile-kicker">START YOUR JOURNEY</span><strong>Level 3</strong><small>3rd Level</small><span class="tile-arrow"><i class="fa-solid fa-arrow-right"></i></span></button>
-        <button class="choice-tile grade-tile tile-blue" data-grade="initial"><span class="tile-icon"><i class="fa-solid fa-rocket"></i></span><span class="tile-kicker">START YOUR JOURNEY</span><strong>Level 4</strong><small>4th Level</small><span class="tile-arrow"><i class="fa-solid fa-arrow-right"></i></span></button>
-        <button class="choice-tile grade-tile tile-pink" data-grade="fifth"><span class="tile-icon"><i class="fa-solid fa-star"></i></span><span class="tile-kicker">READY FOR A CHALLENGE?</span><strong>Level 5</strong><small>5th Level</small><span class="tile-arrow"><i class="fa-solid fa-arrow-right"></i></span></button>
-      </div>
+      <div class="selector-heading"><div><span class="eyebrow">STEP 1</span><h2>Choose your level</h2><p>13 levels · Pre A1 → C1 · Cambridge-aligned (Power Up 1-7 + Evolve B1-B2 + C1 Advanced exam prep).</p></div><span class="heading-icon">🎓</span></div>
+      <div class="tile-grid grade-tiles" id="gradeTiles"></div>
     </section>
     <section class="selector-stage hidden" id="unitStage">
-      <div class="selector-heading"><div><span class="eyebrow">STEP 2</span><h2>Pick your unit</h2><p id="unitSubtitle">Choose a unit to see its learning days.</p></div><button class="back-button" data-back="grade"><i class="fa-solid fa-arrow-left"></i> Grades</button></div>
+      <div class="selector-heading"><div><span class="eyebrow">STEP 2</span><h2>Pick your unit</h2><p id="unitSubtitle">Choose a unit to see its learning days.</p></div><button class="back-button" data-back="grade"><i class="fa-solid fa-arrow-left"></i> Levels</button></div>
       <div class="tile-grid unit-tiles" id="unitTiles"></div>
     </section>
     <section class="selector-stage hidden" id="dayStage">
       <div class="selector-heading"><div><span class="eyebrow">STEP 3</span><h2>Choose your day</h2><p id="daySubtitle">Five steps, one exciting week.</p></div><button class="back-button" data-back="unit"><i class="fa-solid fa-arrow-left"></i> Units</button></div>
       <div class="tile-grid day-tiles" id="dayTiles"></div>
-      <div class="week-ribbon"><i class="fa-solid fa-lightbulb"></i><span><b>Every day is a new discovery.</b> Vocabulary, Reading, Listening, Speaking and Writing live inside each daily lesson.</span></div>
+      <div class="week-ribbon"><i class="fa-solid fa-lightbulb"></i><span><b>Every day is a new discovery.</b> Vocabulary, Reading, Listening, Speaking, Writing, Grammar and Entrepreneurship live inside each daily lesson.</span></div>
     </section>
     <footer class="portal-footer"><span>© Bitongue Adventures</span><span>Explore · Practice · Create</span></footer>
   </main>
@@ -47,7 +41,7 @@
   <div class="brand"><span class="brand-mark">B</span><div>Bitongue <small>ADVENTURES</small></div></div>
   <div class="course">
     <strong>Learning Lab</strong>
-    <span id="selectedPathLabel">Grade 1 · Unit 2 · Day 1</span>
+    <span id="selectedPathLabel">Level · Unit · Day</span>
   </div>
   <button class="menu-return" id="returnToMenu"><i class="fa-solid fa-grid-2"></i> Change lesson</button><div class="xp">⭐ <b id="xp">0</b> XP</div>
 </header>
@@ -56,10 +50,7 @@
   <aside class="sidebar">
     <div class="level-picker">
       <label for="levelSelect">LEVEL</label>
-      <select id="levelSelect">
-        <option value="initial">Initial Level · Unit 2</option>
-        <option value="fifth">5th Level · Unit 1</option>
-      </select>
+      <select id="levelSelect"></select>
     </div>
     <nav>
       <button class="nav-item active" data-tab="home">⌂ <span>Home</span></button>
@@ -71,7 +62,7 @@
       <button class="nav-item" data-tab="grammar">🧩 <span>Grammar</span></button>
       <button class="nav-item" data-tab="project">🚀 <span>Entrepreneurship</span></button>
     </nav>
-    <div class="sidebar-note">You can replace images, audio, video and activities without changing the main layout.</div>
+    <div class="sidebar-note">13 levels · 9 units per level · 5 days per unit. Content is added day by day without changing the layout.</div>
   </aside>
 
   <section class="workspace">
@@ -80,7 +71,7 @@
         <div>
           <span class="eyebrow">BITONGUE ADVENTURES · DAILY LEARNING</span>
           <h1>Learn. Practice. Create.</h1>
-          <p>A modular learning space built around your vocabulary, reading, listening, speaking, writing and grammar resources.</p>
+          <p id="dayPlanInfo">Choose a level, unit and day in the menu to see your learning plan here.</p>
           <button class="cta" data-go="vocabulary">Start today's learning →</button>
         </div>
         <div class="hero-orbit">
@@ -89,10 +80,10 @@
         </div>
       </div>
       <div class="stat-grid">
-        <article><b>2</b><span>Reading resources</span></article>
-        <article><b>2</b><span>Vocabulary sources</span></article>
-        <article><b>3</b><span>Listening videos</span></article>
-        <article><b>7</b><span>Learning areas</span></article>
+        <article><b>13</b><span>Levels · Pre A1 → C1</span></article>
+        <article><b>117</b><span>Units with full grammar coverage</span></article>
+        <article><b>585</b><span>Days of class (5 per unit)</span></article>
+        <article><b>7</b><span>Learning areas per day</span></article>
       </div>
       <div class="section-title"><span>YOUR LEARNING PATH</span><h2>Choose a skill</h2></div>
       <div class="path-grid">
@@ -187,8 +178,8 @@
     </section>
 
     <section id="grammar" class="tab">
-      <div class="section-head"><div><span class="eyebrow">6 · GRAMMAR</span><h2>Grammar in context</h2></div><span class="badge">Editable</span></div>
-      <div class="grammar-hero"><div class="grammar-icon">🧩</div><div><h3>Grammar source</h3><p>This area is intentionally data-driven. Add the grammar point, examples and exercises for each unit without changing the page architecture.</p></div></div>
+      <div class="section-head"><div><span class="eyebrow">6 · GRAMMAR</span><h2>Grammar in context</h2></div><span class="badge">Unit focus: <b id="grammarFocusLabel">—</b></span></div>
+      <div class="grammar-hero"><div class="grammar-icon">🧩</div><div><h3>Grammar of this unit</h3><p>The full grammar syllabus (117 topics, Pre A1 → C1, no repetitions) is distributed one topic per unit. This panel shows the focus of the unit you selected.</p></div></div>
       <div class="grammar-grid">
         <article><span>NOTICE</span><h3>Find the pattern</h3><p>Highlight the grammar you see in the reading.</p></article>
         <article><span>PRACTICE</span><h3>Choose</h3><p>Select the correct form.</p></article>
@@ -199,7 +190,7 @@
 
     <section id="project" class="tab">
       <div class="section-head"><div><span class="eyebrow">7 · ENTREPRENEURSHIP / PROJECT</span><h2>Build something real</h2></div><span class="badge">5-day structure</span></div>
-      <div class="project-note">The project content is intentionally editable. You can define the project for the grade later; the interactive structure is ready now.</div>
+      <div class="project-note">The project content is intentionally editable. Each unit ends the week with an entrepreneurship step connected to the unit theme.</div>
       <div class="project-days">
         <article class="current"><span>DAY 1</span><h3>Discover</h3><p>Identify a need, idea or question.</p><button class="project-btn">Start</button></article>
         <article><span>DAY 2</span><h3>Plan</h3><p>Choose what you will make.</p><button class="project-btn">Locked</button></article>
@@ -220,6 +211,7 @@
     </footer>
   </section>
 </main>
+<script src="curriculum.js"></script>
 <script src="app.js"></script>
 </div>
 </body>
