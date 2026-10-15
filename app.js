@@ -94,22 +94,32 @@ function enginePairs(c){
   tiles.sort(function(){return Math.random()-0.5});
   modal.open('<div class="activity-panel"><h3>🧠 Match & Learn</h3>'+
     '<p class="feedback" id="pairsMsg">Tap a word, then tap its meaning.</p>'+
+    '<p><span class="badge">⏱️ <b id="pairsTimer">'+(total*10)+'</b>s</span></p>'+
     '<div class="match-grid" id="pairsGrid">'+tiles.map(function(t,i){
       return '<button class="match-card" data-p="'+t.p+'" data-i="'+i+'">'+esc(t.t)+'</button>';
     }).join("")+'</div>'+
     '<button class="outline" id="pairsClose">Finish</button></div>');
-  $$("#pairsGrid .match-card").forEach(function(b){
+  let timeLeft=total*10, finished=false;
+  const timer=setInterval(function(){
+    if(finished)return;
+    timeLeft--; const tEl=$id("pairsTimer"); if(tEl)tEl.textContent=timeLeft;
+    if(timeLeft<=0){ finished=true; clearInterval(timer);
+      const m=$id("pairsMsg"); if(m)m.textContent="⏰ Time's up! You matched "+matched+"/"+total+" pairs. Try again to beat the clock!";
+      $("#pairsGrid .match-card").forEach(function(b){b.disabled=true}); }
+  },1000);
+  $("#pairsGrid .match-card").forEach(function(b){
     b.onclick=function(){
       if(b.classList.contains("selected")){ b.classList.remove("selected"); if(first===b)first=null; return; }
       if(!first){ first=b; b.classList.add("selected"); return; }
       if(first.dataset.p===b.dataset.p && first!==b){
         first.disabled=true; b.disabled=true; first.classList.remove("selected"); first.classList.add("ok"); b.classList.add("ok");
         matched++; speak(b.textContent);
-        if(matched===total){ $("#pairsMsg").textContent="🎉 All matched! Well done!"; markDone(lessonKey()+"|pairs",15); }
+        if(matched===total){ finished=true; clearInterval(timer);
+          $("#pairsMsg").textContent="🎉 All matched in "+(total*10-timeLeft)+"s! Well done!"; markDone(lessonKey()+"|pairs",15); }
       } else { first.classList.remove("selected"); first=null; }
     };
   });
-  $("#pairsClose").onclick=modal.close;
+  $("#pairsClose").onclick=function(){ finished=true; clearInterval(timer); modal.close(); };
 }
 
 // ENGINE: choice (Multiple Choice, True/False, Listen & Choose, ...)
@@ -252,12 +262,12 @@ function engineSpell(c){
       '<button class="cta" id="spellCheck">Check</button>'+
       '<small class="feedback" id="spellFb"></small>'+
       '<button class="outline" id="spellNext" style="display:none">Next word →</button></div>');
-    $("#spellPlay").onclick=function(){ speak(it[1]||it[0],0.8); };
+    $("#spellPlay").onclick=function(){ speak(it[0],0.7); };
     $("#spellCheck").onclick=function(){
       const v=$("#spellInput").value.trim().toLowerCase();
       if(v===it[0].toLowerCase()){ $("#spellFb").textContent="✓ Correct!"; markDone(lessonKey()+"|spell"+idx,10);
         $("#spellNext").style.display="inline-block"; }
-      else { $("#spellFb").textContent="✗ Try again. Listen once more."; speak(it[1]||it[0],0.6); }
+      else { $("#spellFb").textContent="✗ Try again. Listen once more."; speak(it[0],0.6); }
     };
     $("#spellNext").onclick=function(){ idx++; idx<c.items.length?render():modal.close(); };
   }
@@ -285,7 +295,18 @@ const ENGINES={ pairs:enginePairs, choice:engineChoice, order:engineOrder, blank
   text:engineText, tts:engineTTS, spell:engineSpell, flashcards:engineFlash };
 
 function openActivity(skillId, modeId){
-  const c=findContent(skillId==="vocabulary"?modeId:skillId);
+  if(skillId==="vocabulary"){
+    const bank=C.CONTENT[lessonKey()+"|words"]||C.CONTENT[pathState.level+"|"+pathState.unit+"|"+pathState.day+"|words"]||null;
+    if(!bank){ modal.open('<div class="activity-panel"><h3>🚧 Vocabulary coming soon</h3>'+
+      '<p>The word set for Level '+currentLevel().num+' · Unit '+pathState.unit+' · Day '+pathState.day+' will be added to the content file, and all 3 modes (Flashcards, Match &amp; Learn, Spell) will work instantly.</p></div>'); return; }
+    const c={ items: bank.items };
+    if(modeId==="flashcards") engineFlash(c);
+    else if(modeId==="match") enginePairs(c);
+    else if(modeId==="spell") engineSpell(c);
+    else modal.open('<div class="activity-panel"><h3>🚧 Mode not found</h3></div>');
+    return;
+  }
+  const c=findContent(skillId);
   if(c && ENGINES[c.type]){ ENGINES[c.type](c); }
   else modal.open('<div class="activity-panel"><h3>🚧 Activity coming soon</h3>'+
     '<p>This activity engine is ready. The specific content for <b>'+esc(skillId)+'</b> (Level '+currentLevel().num+' · Unit '+pathState.unit+' · Day '+pathState.day+') will be added to the content file, and it will work instantly here.</p>'+
@@ -318,20 +339,47 @@ function renderJourney(skillId, containerId){
 
 function renderVocabulary(){
   const v=C.SKILL_JOURNEYS.vocabulary;
-  const modeId={ "Flashcards":"flashcards", "Match & Learn":"match", "Spell":"spell" };
+  const bank=C.CONTENT[lessonKey()+"|words"]||C.CONTENT[pathState.level+"|"+pathState.unit+"|"+pathState.day+"|words"]||null;
+  const setInfo=bank?('<div class="activity-panel"><h3>🃏 Set: '+esc(bank.set||"Words of the day")+'</h3>'+
+    '<p>'+esc(bank.items.length)+' words · '+esc(bank.note||"")+'</p>'+
+    '<p class="project-note">🔊 Audio included: your browser reads every word aloud (TTS). No recordings needed.</p></div>')
+    :'<div class="activity-panel"><h3>🚧 Word set coming soon</h3><p>The set for this day will be added to the content file.</p></div>';
   $id("vocabModeTabs").innerHTML=v.modes.map(function(m,i){
     return '<button class="nav-item'+(i===0?" active":"")+'" data-mode="'+m.id+'">'+m.icon+' <span>'+esc(m.name)+'</span></button>';
   }).join("");
   function showMode(m){
-    $id("vocabModeBody").innerHTML='<div class="activity-panel"><h3>'+m.icon+' '+esc(m.name)+'</h3><p>'+esc(m.desc)+'</p>'+
-      '<button class="cta" id="startMode">Start</button><p class="feedback" id="modeFb"></p></div>';
-    $("#startMode").onclick=function(){ openActivity("vocabulary", m.id); };
+    $id("vocabModeBody").innerHTML=setInfo+
+      '<div class="activity-panel"><h3>'+m.icon+' '+esc(m.name)+'</h3><p>'+esc(m.desc)+'</p>'+
+      (bank?'<button class="cta" id="startMode">Start '+esc(m.name)+'</button>':'')+'<p class="feedback" id="modeFb"></p></div>';
+    if(bank) $("#startMode").onclick=function(){ openActivity("vocabulary", m.id); };
   }
   $id("vocabModeTabs").querySelectorAll("[data-mode]").forEach(function(b){
     b.onclick=function(){ $id("vocabModeTabs").querySelectorAll("[data-mode]").forEach(function(x){x.classList.remove("active")});
       b.classList.add("active"); showMode(v.modes.find(function(m){return m.id===b.dataset.mode})); };
   });
   showMode(v.modes[0]);
+}
+
+// Embed slot: the teacher can paste an iframe / embed code (e.g. audio, video,
+// Quizlet) for this specific day. Saved locally per lesson.
+function renderVocabEmbed(){
+  const key="embed:"+lessonKey();
+  const saved=data.canvas[key]||"";
+  $id("vocabEmbed").value=saved;
+  function show(html){
+    const host=$id("embedHost");
+    host.innerHTML=html?"":'<p class="project-note">Nothing embedded yet for this day. Paste an iframe or embed code below (YouTube, SoundCloud, Quizlet, your own audio player...) and press "Show my embed". It is saved on this device only.</p>';
+    if(html){
+      if(/^https?:\/\/\S+$/i.test(html.trim())) host.innerHTML='<iframe src="'+esc(html.trim())+'" style="width:100%;height:360px;border:0;border-radius:16px" allowfullscreen></iframe>';
+      else host.innerHTML=html;
+    }
+  }
+  show(saved);
+  $id("embedSave").onclick=function(){
+    const v=$id("vocabEmbed").value.trim();
+    data.canvas[key]=v; saveAll(); show(v);
+    $id("embedSaved").textContent="✓ Embed saved locally for this day";
+  };
 }
 
 function renderProject(){
@@ -373,6 +421,7 @@ function launchLesson(day){
   renderJourney("writing","writingJourney");
   renderJourney("grammar","grammarJourney");
   renderVocabulary();
+  renderVocabEmbed();
   renderProject();
   refreshXP();
   openTab('home');
