@@ -109,6 +109,17 @@
       </div>
       <nav class="level-cards" id="vocabModeTabs" style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0"></nav>
       <div id="vocabModeBody"></div>
+      <div class="activity-panel" style="margin-top:24px">
+        <h3>📎 My extra material for this day</h3>
+        <div id="embedHost"></div>
+        <label for="vocabEmbed" style="display:block;margin:12px 0 6px;font-weight:600">Paste your embed code (iframe) or a URL here:</label>
+        <textarea id="vocabEmbed" placeholder='<iframe src="..." ...></iframe>' style="width:100%;min-height:90px"></textarea>
+        <div style="margin-top:10px">
+          <button class="cta" id="embedSave">💾 Show my embed</button>
+          <small class="feedback" id="embedSaved"></small>
+        </div>
+        <p class="project-note">Space reserved for your own audio, video or interactive material. Saved locally on this device, per lesson day.</p>
+      </div>
     </section>
 
     <section id="reading" class="tab">
@@ -182,8 +193,8 @@
     </footer>
   </section>
 </main>
-<script src="curriculum.js?v=4"></script>
-<script src="app.js?v=4"></script>
+<script src="curriculum.js?v=5"></script>
+<script src="app.js?v=5"></script>
 </div>
 <div id="activityModal" class="hidden" style="position:fixed;inset:0;background:rgba(10,16,38,.6);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow:auto">
   <div style="background:#fff;border-radius:24px;max-width:720px;width:100%;max-height:88vh;overflow:auto;position:relative" id="modalCard">
