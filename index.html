@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bitongue Adventures · Choose Your Learning Path</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
 <section id="selectorPortal" class="selector-portal">
@@ -62,7 +62,7 @@
       <button class="nav-item" data-tab="grammar">🧩 <span>Grammar</span></button>
       <button class="nav-item" data-tab="project">🚀 <span>Entrepreneurship</span></button>
     </nav>
-    <div class="sidebar-note">13 levels · 9 units per level · 5 days per unit. Content is added day by day without changing the layout.</div>
+    <div class="sidebar-note">13 levels · 9 units per level · 5 days per unit. Each skill is a Journey with levels, activities and XP.</div>
   </aside>
 
   <section class="workspace">
@@ -83,22 +83,22 @@
         <article><b>13</b><span>Levels · Pre A1 → C1</span></article>
         <article><b>117</b><span>Units with full grammar coverage</span></article>
         <article><b>585</b><span>Days of class (5 per unit)</span></article>
-        <article><b>7</b><span>Learning areas per day</span></article>
+        <article><b>13</b><span>Business Model Canvas projects</span></article>
       </div>
       <div class="section-title"><span>YOUR LEARNING PATH</span><h2>Choose a skill</h2></div>
       <div class="path-grid">
-        <button data-go="vocabulary"><strong>📚 Vocabulary</strong><small>Discover and use words</small></button>
-        <button data-go="reading"><strong>📖 Reading</strong><small>Read and understand</small></button>
-        <button data-go="listening"><strong>🎧 Listening</strong><small>Listen and understand</small></button>
-        <button data-go="speaking"><strong>🎤 Speaking</strong><small>Practice your voice</small></button>
-        <button data-go="writing"><strong>✍️ Writing</strong><small>Build your ideas</small></button>
+        <button data-go="vocabulary"><strong>📚 Vocabulary</strong><small>Flashcards · Match & Learn · Spell</small></button>
+        <button data-go="reading"><strong>📖 Reading</strong><small>Recognize → Understand → Interpret → Analyze</small></button>
+        <button data-go="listening"><strong>🎧 Listening</strong><small>Sounds → Phrases → Sentences → Stories → Dialogues</small></button>
+        <button data-go="speaking"><strong>🎤 Speaking</strong><small>Imitate → Reproduce → Respond → Create</small></button>
+        <button data-go="writing"><strong>✍️ Writing</strong><small>Complete → Build → Guided → Free</small></button>
         <button data-go="grammar"><strong>🧩 Grammar</strong><small>Notice the language</small></button>
-        <button data-go="project"><strong>🚀 Project</strong><small>Create something real</small></button>
+        <button data-go="project"><strong>🚀 Project</strong><small>Business Model Canvas by level</small></button>
       </div>
     </section>
 
     <section id="vocabulary" class="tab">
-      <div class="section-head"><div><span class="eyebrow">1 · VOCABULARY</span><h2>Words for today's learning</h2></div><span class="badge">Interactive</span></div>
+      <div class="section-head"><div><span class="eyebrow">1 · VOCABULARY JOURNEY</span><h2>Words for today's learning</h2></div><span class="badge">3 modes</span></div>
       <div class="source-grid">
         <a class="source-card" href="https://quizlet.com/co/1219852943/initial-level-unit-2-flash-cards/" target="_blank" rel="noopener">
           <span class="source-icon">📚</span><div><b>Initial Level · Unit 2</b><small>Open the Quizlet vocabulary set</small></div><span>↗</span>
@@ -107,17 +107,12 @@
           <span class="source-icon">⭐</span><div><b>5th Level · Unit 1</b><small>Open the Quizlet vocabulary set</small></div><span>↗</span>
         </a>
       </div>
-      <div class="activity-panel">
-        <h3>Quick Practice</h3>
-        <p>Use the source vocabulary, then practice with these reusable interactions.</p>
-        <div class="match-grid" id="matchGrid"></div>
-        <button class="cta" id="checkMatch">Check answers</button>
-        <p class="feedback" id="matchFeedback"></p>
-      </div>
+      <nav class="level-cards" id="vocabModeTabs" style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0"></nav>
+      <div id="vocabModeBody"></div>
     </section>
 
     <section id="reading" class="tab">
-      <div class="section-head"><div><span class="eyebrow">2 · READING</span><h2>Read and Learn</h2></div><span class="badge">2 resources</span></div>
+      <div class="section-head"><div><span class="eyebrow">2 · READING JOURNEY</span><h2>Read and Learn</h2></div><span class="badge">4 levels</span></div>
       <div class="reading-grid">
         <article class="reading-card">
           <img src="healthy-lifestyle.png" alt="A Healthy Lifestyle reading sheet">
@@ -138,70 +133,46 @@
         <button class="cta" id="checkReading">Check reading</button>
         <p class="feedback" id="readingFeedback"></p>
       </div>
+      <div class="level-cards" id="readingJourney"></div>
     </section>
 
     <section id="listening" class="tab">
-      <div class="section-head"><div><span class="eyebrow">3 · LISTENING</span><h2>Listen and Respond</h2></div><span class="badge">YouTube resources</span></div>
+      <div class="section-head"><div><span class="eyebrow">3 · LISTENING JOURNEY</span><h2>Listen and Respond</h2></div><span class="badge">5 levels</span></div>
       <div class="video-grid">
         <article class="video-card"><iframe src="https://www.youtube.com/embed/CqybaIesbuA" title="Good Good Father" allowfullscreen></iframe><div><b>Good Good Father</b><small>Video resource supplied for listening practice.</small></div></article>
         <article class="video-card"><iframe src="https://www.youtube.com/embed/7fFnmguBE3A" title="Classroom Rules For Kids" allowfullscreen></iframe><div><b>Classroom Rules For Kids</b><small>Classroom language listening resource.</small></div></article>
         <article class="video-card"><iframe src="https://www.youtube.com/embed/jKi2SvWOCXc" title="The Bear and the Bee" allowfullscreen></iframe><div><b>The Bear and the Bee</b><small>Story listening resource.</small></div></article>
       </div>
-      <div class="activity-panel">
-        <h3>Listening Mission</h3>
-        <p>Watch or listen to one resource. Then record the key idea in the box.</p>
-        <textarea id="listenNote" placeholder="I heard... / The main idea is..."></textarea>
-        <button class="cta complete" data-skill="listening">Complete listening</button>
-      </div>
+      <div class="level-cards" id="listeningJourney"></div>
     </section>
 
     <section id="speaking" class="tab">
-      <div class="section-head"><div><span class="eyebrow">4 · SPEAKING</span><h2>Speak with confidence</h2></div><span class="badge">4-step progression</span></div>
-      <div class="level-cards">
-        <article><span>LEVEL 1</span><h3>Imitate</h3><p>Repeat a word or short phrase.</p><button class="practice">🎤 Practice</button></article>
-        <article><span>LEVEL 2</span><h3>Reproduce</h3><p>Say a complete sentence.</p><button class="practice">🎤 Practice</button></article>
-        <article><span>LEVEL 3</span><h3>Respond</h3><p>Answer a simple question.</p><button class="practice">🎤 Practice</button></article>
-        <article><span>LEVEL 4</span><h3>Create</h3><p>Create your own sentence.</p><button class="practice">🎤 Practice</button></article>
-      </div>
-      <div class="activity-panel"><h3>Speaking recorder placeholder</h3><p>You can later connect your preferred browser microphone/audio workflow here.</p><button class="cta complete" data-skill="speaking">I practiced speaking</button></div>
+      <div class="section-head"><div><span class="eyebrow">4 · SPEAKING JOURNEY</span><h2>Speak with confidence</h2></div><span class="badge">Listen · Repeat · Record</span></div>
+      <p class="project-note">Listen &amp; Repeat uses your browser's voice (TTS) and microphone. Nothing leaves your device.</p>
+      <div class="level-cards" id="speakingJourney"></div>
     </section>
 
     <section id="writing" class="tab">
-      <div class="section-head"><div><span class="eyebrow">5 · WRITING</span><h2>Build and express ideas</h2></div><span class="badge">4-step progression</span></div>
-      <div class="writing-levels">
-        <article><b>LEVEL 1 · Complete</b><input placeholder="Complete the sentence..."></article>
-        <article><b>LEVEL 2 · Build</b><input placeholder="Unscramble / build..."></article>
-        <article><b>LEVEL 3 · Guided Writing</b><textarea placeholder="Answer with a full sentence..."></textarea></article>
-        <article><b>LEVEL 4 · Free Writing</b><textarea placeholder="Write your own idea..."></textarea></article>
-      </div>
-      <button class="cta complete" data-skill="writing">Complete writing</button>
+      <div class="section-head"><div><span class="eyebrow">5 · WRITING JOURNEY</span><h2>Build and express ideas</h2></div><span class="badge">4 levels</span></div>
+      <div class="level-cards" id="writingJourney"></div>
     </section>
 
     <section id="grammar" class="tab">
-      <div class="section-head"><div><span class="eyebrow">6 · GRAMMAR</span><h2>Grammar in context</h2></div><span class="badge">Unit focus: <b id="grammarFocusLabel">—</b></span></div>
-      <div class="grammar-hero"><div class="grammar-icon">🧩</div><div><h3>Grammar of this unit</h3><p>The full grammar syllabus (117 topics, Pre A1 → C1, no repetitions) is distributed one topic per unit. This panel shows the focus of the unit you selected.</p></div></div>
-      <div class="grammar-grid">
-        <article><span>NOTICE</span><h3>Find the pattern</h3><p>Highlight the grammar you see in the reading.</p></article>
-        <article><span>PRACTICE</span><h3>Choose</h3><p>Select the correct form.</p></article>
-        <article><span>BUILD</span><h3>Complete</h3><p>Build a correct sentence.</p></article>
-        <article><span>USE</span><h3>Create</h3><p>Use the grammar in your own sentence.</p></article>
-      </div>
+      <div class="section-head"><div><span class="eyebrow">6 · GRAMMAR JOURNEY</span><h2>Grammar in context</h2></div><span class="badge">Unit focus: <b id="grammarFocusLabel">—</b></span></div>
+      <div class="grammar-hero"><div class="grammar-icon">🧩</div><div><h3>Grammar of this unit</h3><p>One grammar topic per unit (117 topics, Pre A1 → C1, no repetitions). Practice it in 4 levels: Notice → Practice → Build → Use.</p></div></div>
+      <div class="level-cards" id="grammarJourney"></div>
     </section>
 
     <section id="project" class="tab">
-      <div class="section-head"><div><span class="eyebrow">7 · ENTREPRENEURSHIP / PROJECT</span><h2>Build something real</h2></div><span class="badge">5-day structure</span></div>
-      <div class="project-note">The project content is intentionally editable. Each unit ends the week with an entrepreneurship step connected to the unit theme.</div>
-      <div class="project-days">
-        <article class="current"><span>DAY 1</span><h3>Discover</h3><p>Identify a need, idea or question.</p><button class="project-btn">Start</button></article>
-        <article><span>DAY 2</span><h3>Plan</h3><p>Choose what you will make.</p><button class="project-btn">Locked</button></article>
-        <article><span>DAY 3</span><h3>Create</h3><p>Build the first version.</p><button class="project-btn">Locked</button></article>
-        <article><span>DAY 4</span><h3>Improve</h3><p>Test, revise and improve.</p><button class="project-btn">Locked</button></article>
-        <article><span>DAY 5</span><h3>Share</h3><p>Present and reflect.</p><button class="project-btn">Locked</button></article>
-      </div>
+      <div class="section-head"><div><span class="eyebrow">7 · ENTREPRENEURSHIP / PROJECT</span><h2>Build something real</h2></div><span class="badge">Business Model Canvas</span></div>
+      <div class="activity-panel" id="projectLevelInfo"></div>
+      <div class="project-note">Each level has one project based on the Business Model Canvas. The canvas grows with the level: from a 3-block mini-canvas in Level 1 to the full 9-block canvas with an investor pitch in Level 13. Each unit's week (Discover · Plan · Create · Improve · Share) advances the project.</div>
+      <div class="grammar-grid" id="bmcGrid"></div>
       <div class="activity-panel">
         <h3>Project workspace</h3>
-        <label>My idea<textarea placeholder="Write or paste the project instructions here..."></textarea></label>
-        <button class="cta complete" data-skill="project">Save my project step</button>
+        <button class="cta" id="bmcSave">💾 Save my canvas</button>
+        <small class="feedback" id="bmcSaved"></small>
+        <p class="project-note">Your canvas is saved in this browser (localStorage). Nothing is sent to the internet.</p>
       </div>
     </section>
 
@@ -211,8 +182,14 @@
     </footer>
   </section>
 </main>
-<script src="curriculum.js"></script>
-<script src="app.js"></script>
+<script src="curriculum.js?v=4"></script>
+<script src="app.js?v=4"></script>
+</div>
+<div id="activityModal" class="hidden" style="position:fixed;inset:0;background:rgba(10,16,38,.6);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px;overflow:auto">
+  <div style="background:#fff;border-radius:24px;max-width:720px;width:100%;max-height:88vh;overflow:auto;position:relative" id="modalCard">
+    <button id="modalClose" style="position:absolute;top:14px;right:14px;background:#122050;color:#fff;border:0;border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer">✕</button>
+    <div id="modalBody" style="padding:24px"></div>
+  </div>
 </div>
 </body>
 </html>
