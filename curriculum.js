@@ -170,6 +170,16 @@ const SKILL_JOURNEYS = {
       { id: "match",      name: "Match & Learn", icon: "🧠", desc: "Drag or tap pairs: match each word with its meaning before the timer ends." },
       { id: "spell",      name: "Spell",         icon: "⌨️", desc: "Listen to the word and type it correctly." }
     ]
+  },
+  grammar: {
+    title: "Grammar Journey",
+    howItWorks: "Notice · Practice · Build · Use · Earn XP",
+    levels: [
+      { name: "Notice",  xp: 10, activities: ["Find the Pattern", "Spot the Example", "Sort the Words", "Label the Parts"] },
+      { name: "Practice", xp: 15, activities: ["Choose the Form", "Right or Wrong?", "Complete the Rule", "Match the Halves"] },
+      { name: "Build",   xp: 20, activities: ["Build the Sentence", "Transform It", "Fix the Error", "Complete the Text"] },
+      { name: "Use",     xp: 25, activities: ["Use It Yourself", "Ask & Answer", "Mini Dialogue", "Grammar in Action"] }
+    ]
   }
 };
 
