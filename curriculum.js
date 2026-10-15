@@ -227,19 +227,23 @@ const READY_LESSONS = {
 //   { type:"tts",    items:[{say:"...",hint:"..."}] }        // listen & repeat
 //   { type:"spell",  items:[["word","audio-text"]] }
 //   { type:"bmc",    blocks:{...} }                          // project canvas
-// Example demo entry (Level 1 · Unit 1 · Day 1 · Vocabulary) for testing:
 const CONTENT = {
-  "l1|1|1|vocabulary": { type: "pairs", items: [
-    ["hello", "a greeting when you meet someone"],
-    ["friend", "a person you like and enjoy being with"],
-    ["name", "what people call you"],
-    ["teacher", "a person who helps you learn"],
-    ["student", "a person who learns at school"]
-  ]},
-  "l1|1|1|reading": { type: "choice", items: [
-    { q: "Sam says 'Hello!' to Ana. How does Ana answer?", options: ["Hello!", "Goodbye!", "My name is Sam."], answer: 0 },
-    { q: "What do you say when you meet a new friend?", options: ["Good night", "Hello!", "Nothing"], answer: 1 }
-  ]}
+  // LEVEL 1 · UNIT 1 "Hello, friends!" · DAY 1 "Discover" · VOCABULARY
+  // Flashcard set name: "Discover" — used by all 3 modes (Flashcards, Match & Learn, Spell)
+  "l1|1|1|words": {
+    set: "Discover",
+    note: "Tap the cards, listen and repeat. The browser reads every word for you.",
+    items: [
+      ["hello",     "the word we say when we meet someone"],
+      ["hi",        "a short, friendly way to say hello"],
+      ["friend",    "a person you like and play with"],
+      ["name",      "what people call you"],
+      ["teacher",   "a person who helps you learn"],
+      ["student",   "a person who learns at school"],
+      ["classmate", "a student who is in your class"],
+      ["happy",     "when you feel very good and smile"]
+    ]
+  }
 };
 
 window.CURRICULUM = { LEVELS, DAY_STRUCTURE, SKILL_AREAS, SKILL_JOURNEYS, PROJECTS, BMC_BLOCKS, READY_LESSONS, CONTENT };
