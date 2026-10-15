@@ -1,4 +1,4 @@
-// Bitongue Adventures — Curriculum data
+// Bitongue Adventures — Curriculum data (single source of truth)
 // 13 levels (Pre A1 -> C1 exam prep), aligned with Cambridge recommendations:
 // Levels 1-7: Power Up path (Pre A1 - B1, primary);
 // Levels 8-11: Evolve secondary path (B1 - B2);
@@ -115,10 +115,121 @@ const LEVELS = [
     ["Full mock & feedback", "Simulated exam, error analysis & action plan"]]}
 ];
 
+// ---------------------------------------------------------------------------
+// SKILL JOURNEYS (design from the research PDF)
+// Each journey = progressive levels; each level = activities + XP.
+// Content per activity is added later in CONTENT (below), day by day.
+// ---------------------------------------------------------------------------
+const SKILL_JOURNEYS = {
+  reading: {
+    title: "Reading Journey",
+    howItWorks: "Read · Understand · Think · Answer · Earn XP",
+    levels: [
+      { name: "Recognize",  xp: 10, activities: ["Word Discovery", "Picture Match", "Find in the Story", "Highlight Words", "Who Said It?"] },
+      { name: "Understand", xp: 15, activities: ["Multiple Choice", "True or False", "Order the Events", "Character Feelings", "Find Evidence"] },
+      { name: "Interpret",  xp: 20, activities: ["Why Did It Happen?", "Character Motivation", "Prediction", "Best Advice", "Choose the Lesson"] },
+      { name: "Analyze",    xp: 25, activities: ["Compare & Reality", "Problem Solving", "Decision Making", "Real Life Connection", "Challenge Question"] }
+    ]
+  },
+  listening: {
+    title: "Listening Journey",
+    howItWorks: "Listen · Think · Answer · Earn XP",
+    levels: [
+      { name: "Identify Sounds & Words", xp: 10, activities: ["Listen & Choose", "Listen & Match", "Listen & Select", "Listen & Find", "Listen & Repeat"] },
+      { name: "Understand Phrases",      xp: 15, activities: ["Listen & Choose", "Listen & Order", "Listen & True or False", "Listen & Complete"] },
+      { name: "Understand Sentences",    xp: 20, activities: ["Listen & Answer", "Listen & Follow Instructions", "Listen & Draw", "Listen & Correct"] },
+      { name: "Understand Stories",      xp: 25, activities: ["Listen to the Story", "Listen & Answer", "Listen & Explain", "Listen & Reflect"] },
+      { name: "Understand Dialogues",    xp: 30, activities: ["Listen to the Dialogue", "Listen & Answer", "Listen & Sequence", "Listen & Choose", "Listen & Infer"] }
+    ]
+  },
+  speaking: {
+    title: "Speaking Journey",
+    howItWorks: "Listen · Think · Speak · Earn XP",
+    levels: [
+      { name: "Imitate",   xp: 10, activities: ["Listen & Repeat Words", "Listen & Repeat Phrases", "Listen & Repeat Sentences"] },
+      { name: "Reproduce", xp: 15, activities: ["Listen & Repeat Dialogue", "Repeat the Phrases", "Describe the Picture"] },
+      { name: "Respond",   xp: 20, activities: ["Answer the Question", "Ask & Answer", "Role-play the Dialogue"] },
+      { name: "Create",    xp: 25, activities: ["Tell Your Story", "Interview a Friend", "Present Your Idea"] }
+    ]
+  },
+  writing: {
+    title: "Writing Journey",
+    howItWorks: "Complete · Build · Write · Create · Earn XP",
+    levels: [
+      { name: "Complete",      xp: 10, activities: ["Complete the Words", "Complete the Sentences", "Look at the Pictures and Write", "Put the Words in Order"] },
+      { name: "Build",         xp: 15, activities: ["Unscramble the Sentences", "Combine the Sentences", "Use the Words", "Describe the Picture"] },
+      { name: "Guided Writing", xp: 20, activities: ["Answer the Questions", "Write 2 Sentences", "What Happened Next?", "Describe the Character"] },
+      { name: "Free Writing",  xp: 25, activities: ["Write a Short Story", "Opinions and Ideas", "Write a Letter", "Draw and Write"] }
+    ]
+  },
+  vocabulary: {
+    title: "Vocabulary Journey",
+    howItWorks: "Quizlet-style modes: Flashcards · Match & Learn · Spell",
+    modes: [
+      { id: "flashcards", name: "Flashcards",    icon: "🃏", desc: "Flip cards to learn each word (word ↔ meaning)." },
+      { id: "match",      name: "Match & Learn", icon: "🧠", desc: "Drag or tap pairs: match each word with its meaning before the timer ends." },
+      { id: "spell",      name: "Spell",         icon: "⌨️", desc: "Listen to the word and type it correctly." }
+    ]
+  }
+};
+
+// ---------------------------------------------------------------------------
+// ENTREPRENEURSHIP: one project per level (13), all based on the
+// Business Model Canvas (BMC). The canvas grows with the level:
+// mini-canvas (kids) -> 5 blocks -> full 9-block canvas + pitch (C1).
+// ---------------------------------------------------------------------------
+const BMC_BLOCKS = [
+  "Key Partners", "Key Activities", "Key Resources", "Value Proposition",
+  "Customer Relationships", "Channels", "Customer Segments", "Cost Structure", "Revenue Streams"
+];
+
+const PROJECTS = {
+  l1:  { title: "My Classroom Store",                scope: "Mini-canvas (3 blocks)", blocks: ["Customer Segments", "Value Proposition", "Channels"],        desc: "Identify what classmates need, offer it, and show it to customers." },
+  l2:  { title: "Toy Exchange Market",               scope: "Mini-canvas (4 blocks)", blocks: ["Customer Segments", "Value Proposition", "Channels", "Customer Relationships"], desc: "Organize a market where friends exchange toys fairly." },
+  l3:  { title: "Healthy Snack Stand",              scope: "Mini-canvas (5 blocks)", blocks: ["Customer Segments", "Value Proposition", "Channels", "Cost Structure", "Revenue Streams"], desc: "Design and cost a healthy snack for the school break." },
+  l4:  { title: "Recycling Heroes Service",         scope: "Mini-canvas (5 blocks)", blocks: ["Customer Segments", "Value Proposition", "Key Activities", "Channels", "Customer Relationships"], desc: "Offer a recycling service that helps the school community." },
+  l5:  { title: "School Garden Produce",            scope: "Mini-canvas (6 blocks)", blocks: ["Customer Segments", "Value Proposition", "Key Activities", "Key Resources", "Cost Structure", "Revenue Streams"], desc: "Grow and sell garden produce; plan costs and income." },
+  l6:  { title: "Pet Care Helpers",                 scope: "Mini-canvas (6 blocks)", blocks: ["Customer Segments", "Value Proposition", "Key Activities", "Channels", "Customer Relationships", "Revenue Streams"], desc: "Design a pet-care helper service for the neighborhood." },
+  l7:  { title: "Community Fair Event",             scope: "Mini-canvas (7 blocks)", blocks: ["Customer Segments", "Value Proposition", "Key Activities", "Key Resources", "Channels", "Cost Structure", "Revenue Streams"], desc: "Plan a school fair: partners, activities, costs and income." },
+  l8:  { title: "Upcycled Product Line",            scope: "Mini-canvas (7 blocks)", blocks: ["Customer Segments", "Value Proposition", "Key Activities", "Key Resources", "Channels", "Customer Relationships", "Revenue Streams"], desc: "Create products from recycled materials and define the business." },
+  l9:  { title: "Digital Content Channel",          scope: "Full canvas (9 blocks)", blocks: BMC_BLOCKS, desc: "Design an educational content channel and map all nine blocks." },
+  l10: { title: "Startup Pitch Idea",               scope: "Full canvas (9 blocks)", blocks: BMC_BLOCKS, desc: "Develop a startup idea, complete the canvas and prepare a short pitch." },
+  l11: { title: "Social Enterprise",                scope: "Full canvas (9 blocks)", blocks: BMC_BLOCKS, desc: "Design a social enterprise: value for people and planet, with a canvas." },
+  l12: { title: "Innovation Startup",               scope: "Full canvas (9 blocks)", blocks: BMC_BLOCKS, desc: "Build a startup around an innovation; validate assumptions with the canvas." },
+  l13: { title: "Full Canvas + Investor Pitch",    scope: "Full canvas + pitch",    blocks: BMC_BLOCKS, desc: "Complete a full Business Model Canvas and deliver an investor pitch in English (C1 level)." }
+};
+
 // Lessons that already have full content (updated as content is added).
 const READY_LESSONS = {
   "l1|2|1": { note: "Full content available" },
   "l5|1|1": { note: "Full content available" }
 };
 
-window.CURRICULUM = { LEVELS, DAY_STRUCTURE, SKILL_AREAS, READY_LESSONS };
+// ---------------------------------------------------------------------------
+// ACTIVITY CONTENT SCHEMA (filled later, day by day).
+// Key: "level|unit|day|skill|journeyLevel|activityIndex"
+// Value: one object per engine type:
+//   { type:"pairs",  items:[["word","meaning"],...] }
+//   { type:"choice", items:[{q:"...",options:["..."],answer:0}] }
+//   { type:"order",  items:[{prompt:"...",correct:["first","second",...]}] }
+//   { type:"blanks", items:[{sentence:"There is ___ noise in the ___.", bank:["a","the"],answers:["a","the"]}] }
+//   { type:"text",   items:[{prompt:"...",example:"..."}] }
+//   { type:"tts",    items:[{say:"...",hint:"..."}] }        // listen & repeat
+//   { type:"spell",  items:[["word","audio-text"]] }
+//   { type:"bmc",    blocks:{...} }                          // project canvas
+// Example demo entry (Level 1 · Unit 1 · Day 1 · Vocabulary) for testing:
+const CONTENT = {
+  "l1|1|1|vocabulary": { type: "pairs", items: [
+    ["hello", "a greeting when you meet someone"],
+    ["friend", "a person you like and enjoy being with"],
+    ["name", "what people call you"],
+    ["teacher", "a person who helps you learn"],
+    ["student", "a person who learns at school"]
+  ]},
+  "l1|1|1|reading": { type: "choice", items: [
+    { q: "Sam says 'Hello!' to Ana. How does Ana answer?", options: ["Hello!", "Goodbye!", "My name is Sam."], answer: 0 },
+    { q: "What do you say when you meet a new friend?", options: ["Good night", "Hello!", "Nothing"], answer: 1 }
+  ]}
+};
+
+window.CURRICULUM = { LEVELS, DAY_STRUCTURE, SKILL_AREAS, SKILL_JOURNEYS, PROJECTS, BMC_BLOCKS, READY_LESSONS, CONTENT };
